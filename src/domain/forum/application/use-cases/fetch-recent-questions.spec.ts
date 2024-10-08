@@ -32,7 +32,7 @@ describe('Fetch Recent Questions', () => {
       page: 1,
     })
 
-    expect(result.value?.question).toEqual([
+    expect(result.value?.questions).toEqual([
       expect.objectContaining({ createdAt: new Date(2022, 0, 23) }),
       expect.objectContaining({ createdAt: new Date(2022, 0, 20) }),
       expect.objectContaining({ createdAt: new Date(2022, 0, 18) }),
@@ -47,6 +47,6 @@ describe('Fetch Recent Questions', () => {
       page: 2,
     })
 
-    expect(result.value?.question).toHaveLength(2)
+    expect(result.value?.questions).toHaveLength(2)
   })
 })
