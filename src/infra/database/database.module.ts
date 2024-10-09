@@ -9,6 +9,11 @@ import { PrismaQuestionCommentsRepository } from './prisma/repositories/prisma-q
 import { QuestionsRepository } from '@/domain/forum/application/repositories/questions-repository'
 import { StudentsRepository } from '@/domain/forum/application/repositories/students-repository'
 import { PrismaStudentsRepository } from './prisma/repositories/prisma-students-repository'
+import { AnswersRepository } from '@/domain/forum/application/repositories/answers-repository'
+import { AnswerCommentsRepository } from '@/domain/forum/application/repositories/answer-comments-repository'
+import { QuestionCommentsRepository } from '@/domain/forum/application/repositories/question-comments-repository'
+import { AnswerAttachmentsRepository } from '@/domain/forum/application/repositories/answer-attachments-repository'
+import { QuestionAttachmentsRepository } from '@/domain/forum/application/repositories/question-attachment-repository'
 
 @Module({
   providers: [
@@ -21,21 +26,33 @@ import { PrismaStudentsRepository } from './prisma/repositories/prisma-students-
       provide: StudentsRepository,
       useClass: PrismaStudentsRepository,
     },
-    PrismaAnswersRepository,
-    PrismaAnswerCommentsRepository,
-    PrismaQuestionCommentsRepository,
-    PrismaAnswerAttachmentsRepository,
-    PrismaQuestionAttachmentsRepository,
+    { provide: AnswersRepository, useClass: PrismaAnswersRepository },
+    {
+      provide: AnswerCommentsRepository,
+      useClass: PrismaAnswerCommentsRepository,
+    },
+    {
+      provide: QuestionCommentsRepository,
+      useClass: PrismaQuestionCommentsRepository,
+    },
+    {
+      provide: AnswerAttachmentsRepository,
+      useClass: PrismaAnswerAttachmentsRepository,
+    },
+    {
+      provide: QuestionAttachmentsRepository,
+      useClass: PrismaQuestionAttachmentsRepository,
+    },
   ],
   exports: [
     PrismaService,
     QuestionsRepository,
     StudentsRepository,
-    PrismaAnswersRepository,
-    PrismaAnswerCommentsRepository,
-    PrismaQuestionCommentsRepository,
-    PrismaAnswerAttachmentsRepository,
-    PrismaQuestionAttachmentsRepository,
+    AnswersRepository,
+    AnswerCommentsRepository,
+    QuestionCommentsRepository,
+    AnswerAttachmentsRepository,
+    QuestionAttachmentsRepository,
   ],
 })
 export class DatabaseModule {}
